@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#163a5f">
+  <title>Diário Escolar CMMSF</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <link rel="stylesheet" href="css/official.css">
+</head>
+<body>
+  <header class="topbar">
+    <div><h1>Diário Escolar</h1><p id="schoolName">CMMSF • offline</p></div>
+    <div id="saveState" class="save-state">Dados locais</div>
+  </header>
+
+  <section class="context-bar">
+    <label>Turma<select id="classSelect"></select></label>
+    <label>Disciplina<select id="subjectSelect"></select></label>
+    <label>Unidade<select id="unitSelect"></select></label>
+    <button class="btn secondary" id="installButton" hidden>Instalar aplicativo</button>
+  </section>
+
+  <nav class="tabs" aria-label="Seções">
+    <button data-tab="attendance" class="active">Chamada</button>
+    <button data-tab="qualitative">Qualitativas</button>
+    <button data-tab="scored">Pontuadas</button>
+    <button data-tab="gradebook">Diário</button>
+    <button data-tab="registry">Cadastros</button>
+    <button data-tab="reports">Relatórios</button>
+    <button data-tab="official">Diário oficial</button>
+  </nav>
+
+  <main>
+    <section id="tab-attendance" class="panel active">
+      <div class="panel-head">
+        <div><h2>Chamada</h2><p>Todos começam presentes. Marque apenas os ausentes.</p></div>
+        <label>Data<input id="attendanceDate" type="date"></label>
+      </div>
+      <div class="toolbar attendance-actions"><span class="pill">Presentes: <b id="presentCount">0</b></span><span class="pill danger">Ausentes: <b id="absentCount">0</b></span><button class="btn secondary" id="allPresentButton">Todos presentes</button><button class="btn primary push" id="saveAttendanceButton">Salvar chamada</button></div>
+      <div class="table-wrap"><table><thead><tr><th class="num">Nº</th><th class="student">Estudante</th><th class="small">Ausente</th></tr></thead><tbody id="attendanceBody"></tbody></table></div>
+    </section>
+
+    <section id="tab-qualitative" class="panel">
+      <div class="panel-head">
+        <div><h2>Atividade qualitativa</h2><p>+ vale 3, +- vale 2, − vale 1, NF e A valem 0.</p></div>
+        <label>Atividade<select id="qualSelect"></select></label><button class="btn secondary" id="newQualButton">Nova</button>
+        <label>Data<input id="qualDate" type="date"></label>
+        <label class="grow">Título<input id="qualTitle" type="text" placeholder="Ex.: Atividade 1"></label>
+      </div>
+      <div class="toolbar"><button class="btn secondary" id="qualAllPlus">Todos +</button><button class="btn secondary" id="qualClear">Limpar</button><span class="pill">Lançados: <b id="qualCount">0</b></span><button class="btn danger push" id="deleteQualButton">Excluir</button><button class="btn primary" id="saveQualButton">Salvar atividade</button></div>
+      <div class="table-wrap"><table><thead><tr><th class="num">Nº</th><th class="student">Estudante</th><th class="ratings">Qualitativo</th><th class="small">Pontos</th></tr></thead><tbody id="qualBody"></tbody></table></div>
+    </section>
+
+    <section id="tab-scored" class="panel">
+      <div class="panel-head">
+        <div><h2>Avaliação pontuada</h2><p>A paralela substitui a nota original somente quando for maior.</p></div>
+        <label>Avaliação<select id="scoredSelect"></select></label>
+        <button class="btn secondary" id="newScoredButton">Nova avaliação</button>
+      </div>
+      <div class="form-grid">
+        <label>Título<input id="scoredTitle" type="text" placeholder="Ex.: Teste 1"></label>
+        <label>Tipo<select id="scoredType"><option>Atividade</option><option>Trabalho</option><option>Teste</option><option>Prova</option><option>Outro</option></select></label>
+        <label>Data<input id="scoredDate" type="date"></label>
+        <label>Valor máximo<input id="scoredMax" type="number" min="0.1" max="10" step="0.1" value="2"></label>
+      </div>
+      <div class="toolbar"><span class="pill">Distribuído: <b id="allocatedPoints">0,0</b>/10</span><span class="pill">Restante: <b id="remainingPoints">10,0</b></span><button class="btn danger push" id="deleteScoredButton">Excluir</button><button class="btn primary" id="saveScoredButton">Salvar notas</button></div>
+      <div class="table-wrap"><table><thead><tr><th class="num">Nº</th><th class="student">Estudante</th><th class="score">Original</th><th class="score recovery">Paralela</th><th class="score">Considerada</th></tr></thead><tbody id="scoredBody"></tbody></table></div>
+    </section>
+
+    <section id="tab-gradebook" class="panel">
+      <div class="panel-head"><div><h2>Diário da turma</h2><p>Visão geral da unidade com qualitativos, avaliações, paralelas e nota final.</p></div><label>Exibir<select id="gradeFilter"><option value="all">Todos</option><option value="below">Abaixo da média</option><option value="pending">Pendentes</option><option value="recovery">Com paralela</option></select></label></div>
+      <div id="summaryCards" class="cards"></div>
+      <div class="table-wrap gradebook-wrap"><table id="gradebookTable"><thead id="gradebookHead"></thead><tbody id="gradebookBody"></tbody></table></div>
+      <p class="legend"><span class="status plus">+</span> 3 &nbsp; <span class="status mixed">+-</span> 2 &nbsp; <span class="status minus">−</span> 1 &nbsp; <span class="status zero">NF/A</span> 0 &nbsp; <span class="pending-dot">•</span> pendente</p>
+    </section>
+
+    <section id="tab-registry" class="panel">
+      <div class="two-cols">
+        <article class="card"><h2>Importar turmas</h2><p>Cole um JSON estruturado ou escolha um arquivo. A importação mescla alunos e disciplinas pelo identificador.</p><textarea id="importText" rows="9" placeholder='{"turmas":[{"id":"9-ano-m","nome":"9º ANO M","alunos":[]}]}'></textarea><input id="importFile" type="file" accept=".json,application/json"><div id="importPreview" class="notice muted">Nenhum JSON analisado.</div><button class="btn secondary" id="previewImportButton">Analisar</button><button class="btn primary" id="confirmImportButton" disabled>Importar e mesclar</button></article>
+        <article class="card"><h2>Disciplinas da turma</h2><div id="subjectList"></div><div class="inline-form"><input id="newSubjectName" type="text" placeholder="Ex.: Matemática - Reforço"><button class="btn primary" id="addSubjectButton">Adicionar</button></div><p class="muted">Disciplinas com registros podem ser desativadas, preservando o histórico.</p></article>
+        <article class="card"><h2>Configuração da unidade</h2><label>Valor das atividades qualitativas<input id="qualWeight" type="number" min="0" max="10" step="0.1" value="3"></label><label>Média da unidade<input id="passingGrade" type="number" min="0" max="10" step="0.1" value="5"></label><div id="unitAllocation" class="notice"></div><button class="btn primary" id="saveUnitPlanButton">Salvar configuração</button><button class="btn secondary" id="toggleUnitButton">Encerrar unidade</button></article>
+        <article class="card"><h2>Backup e nuvem</h2><button class="btn primary" id="exportAllButton">Exportar JSON completo</button><button class="btn secondary" id="importAllButton">Importar backup completo</button><input id="backupFile" type="file" accept=".json,application/json" hidden><hr><label>API GET/PUT<input id="cloudUrl" type="url" placeholder="https://...workers.dev/diario"></label><label>Bearer token<input id="cloudToken" type="password"></label><button class="btn secondary" id="saveCloudButton">Salvar nuvem</button><button class="btn primary" id="syncCloudButton">Sincronizar agora</button><div id="cloudStatus" class="notice muted">Nuvem opcional.</div></article>
+      </div>
+    </section>
+
+    <section id="tab-reports" class="panel">
+      <div class="panel-head"><div><h2>Relatório da unidade</h2><p>Resumo calculado da turma, disciplina e unidade selecionadas.</p></div><button class="btn primary" id="exportReportButton">Exportar relatório JSON</button></div>
+      <div id="reportHeader" class="report-header"></div>
+      <div class="table-wrap"><table><thead><tr><th class="num">Nº</th><th class="student">Estudante</th><th>Pontos qualitativos</th><th>Avaliações</th><th>Total</th><th>Situação</th></tr></thead><tbody id="reportBody"></tbody></table></div>
+      <h3>Resumo das três unidades</h3>
+      <div class="table-wrap"><table><thead><tr><th class="num">Nº</th><th class="student">Estudante</th><th>1ª Unidade</th><th>2ª Unidade</th><th>3ª Unidade</th></tr></thead><tbody id="annualBody"></tbody></table></div>
+    </section>
+
+    <section id="tab-official" class="panel">
+      <div class="panel-head">
+        <div><h2>Diário oficial da escola</h2><p>Modelo A4 paisagem preenchido com as três unidades e a frequência da turma.</p></div>
+        <label>Conteúdo<select id="officialMode"><option value="complete">Notas e frequência</option><option value="grades">Somente notas</option><option value="attendance">Somente frequência</option></select></label>
+        <button class="btn secondary" id="officialResetButton">Recriar mapeamento</button>
+        <button class="btn secondary" id="officialPrintButton">Imprimir visualização</button>
+        <button class="btn primary" id="officialExportButton">Exportar HTML oficial</button>
+      </div>
+      <div class="official-help"><b>Como funciona:</b> os cabeçalhos, pesos, datas e notas podem ser editados antes da impressão. O HTML oficial só é exportado quando os pesos das três colunas somam exatamente 10,0 em cada unidade e nenhuma nota ultrapassa seu peso.</div>
+      <div id="officialValidation" class="official-validation"></div>
+      <div id="officialPreviewWrap" class="official-preview-wrap"><div id="officialPreview"></div></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status"></div>
+  <div id="modal" class="modal" aria-hidden="true"><div class="modal-box"><button id="modalClose" class="modal-close">×</button><h2 id="modalTitle"></h2><div id="modalContent"></div></div></div>
+
+  <script src="js/initial-data.js"></script>
+  <script src="js/calculos.js"></script>
+  <script src="js/banco.js"></script>
+  <script src="js/sync.js"></script>
+  <script src="js/official.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
