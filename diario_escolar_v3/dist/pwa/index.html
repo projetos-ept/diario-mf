@@ -88,9 +88,10 @@
     </section>
 
     <section id="tab-reports" class="panel">
-      <div class="panel-head"><div><h2>Relatório da unidade</h2><p>Resumo calculado da turma, disciplina e unidade selecionadas.</p></div><button class="btn primary" id="exportReportButton">Exportar relatório JSON</button></div>
+      <div class="panel-head"><div><h2>Visão geral da turma</h2><p>Frequência, atividades e notas de testes e provas da turma, disciplina e unidade selecionadas.</p></div><button class="btn secondary" id="printReportButton">Imprimir relatório</button><button class="btn primary" id="exportReportButton">Exportar relatório JSON</button></div>
       <div id="reportHeader" class="report-header"></div>
-      <div class="table-wrap"><table><thead><tr><th class="num">Nº</th><th class="student">Estudante</th><th>Pontos qualitativos</th><th>Avaliações</th><th>Total</th><th>Situação</th></tr></thead><tbody id="reportBody"></tbody></table></div>
+      <div id="reportCards" class="cards"></div>
+      <div class="table-wrap gradebook-wrap"><table id="reportTable"><thead id="reportHead"></thead><tbody id="reportBody"></tbody></table></div>
       <h3>Resumo das três unidades</h3>
       <div class="table-wrap"><table><thead><tr><th class="num">Nº</th><th class="student">Estudante</th><th>1ª Unidade</th><th>2ª Unidade</th><th>3ª Unidade</th></tr></thead><tbody id="annualBody"></tbody></table></div>
     </section>

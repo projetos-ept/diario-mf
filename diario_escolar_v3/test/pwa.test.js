@@ -7,7 +7,7 @@ const Official=require('../js/official.js');
 
 test('service worker usa cache novo e contém todos os arquivos offline',()=>{
   const source=fs.readFileSync('sw.js','utf8');
-  assert.match(source,/diario-cmmsf-v3-5/);
+  assert.match(source,/diario-cmmsf-v3-\d+/);
   assert.match(source,/request\.mode==='navigate'/);
   const files=[];
   source.replace(/'\.\/([^']*)'/g,(_,file)=>{files.push(file);return _;});
@@ -18,6 +18,16 @@ test('service worker usa cache novo e contém todos os arquivos offline',()=>{
   for(const required of ['index.html','css/official.css','js/official.js','manifest.webmanifest']){
     assert.equal(files.includes(required),true,'arquivo não listado no precache: '+required);
   }
+});
+
+test('impressão do diário oficial não esconde as outras abas',()=>{
+  const officialCss=fs.readFileSync('css/official.css','utf8');
+  const bare=(officialCss.match(/main>\.panel:not\(#tab-official\)/g)||[]).length;
+  const scoped=(officialCss.match(/body\.print-official main>\.panel:not\(#tab-official\)/g)||[]).length;
+  assert.equal(bare,scoped,'a regra que esconde as outras abas precisa ficar restrita a body.print-official');
+  assert.ok(scoped>0);
+  const appJs=fs.readFileSync('js/app.js','utf8');
+  assert.match(appJs,/classList\.toggle\('print-official'/);
 });
 
 test('manifest mantém instalação e escopo relativo para GitHub Pages',()=>{

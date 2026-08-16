@@ -16,10 +16,11 @@
 @media print{
  @page{size:A4 landscape;margin:5mm}
  html,body{width:auto!important;background:#fff!important;overflow:visible!important}
- body>*:not(main),main>.panel:not(#tab-official){display:none!important}
+ body>*:not(main){display:none!important}
  main{max-width:none!important;padding:0!important;margin:0!important;overflow:visible!important}
- #tab-official{display:block!important;margin:0!important;padding:0!important}
- #tab-official>.panel-head,#tab-official>.official-help,#tab-official>.official-validation{display:none!important}
+ body.print-official main>.panel:not(#tab-official){display:none!important}
+ body.print-official #tab-official{display:block!important;margin:0!important;padding:0!important}
+ body.print-official #tab-official>.panel-head,body.print-official #tab-official>.official-help,body.print-official #tab-official>.official-validation{display:none!important}
  .official-preview-wrap{overflow:visible!important;border:0!important;border-radius:0!important;background:#fff!important;padding:0!important}
  #officialPreview{width:auto!important;min-width:0!important}
  .official-sheet{width:287mm;min-height:200mm;margin:0;padding:4mm 5mm;box-shadow:none;break-after:page;page-break-after:always}
