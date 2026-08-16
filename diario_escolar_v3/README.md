@@ -9,6 +9,15 @@ Aplicativo offline para chamadas, atividades qualitativas, avaliações pontuada
 - `index.html`, `css/` e `js/`: código-fonte modular para manutenção.
 - `worker/`: API Cloudflare opcional, já preparada para GET/PUT e CORS.
 
+## Raiz do repositório × `diario_escolar_v3/`
+
+O repositório mantém **duas cópias idênticas** do mesmo aplicativo:
+
+- a **raiz** (`index.html`, `css/`, `js/`, `sw.js`, `manifest.webmanifest`, `assets/`) é a versão essencial publicada no GitHub Pages;
+- `diario_escolar_v3/` é o projeto completo, com a mesma cópia de `index.html`/`css/`/`js/`/`sw.js`/`manifest.webmanifest`/`assets/`, além do build (`build/build.mjs`), da suíte de testes (`test/`), do pacote distribuível (`dist/pwa/` e `dist/diario-escolar-offline.html`) e da API opcional (`worker/`).
+
+**Qualquer alteração no código do aplicativo (HTML, CSS, JS, service worker ou manifest) precisa ser replicada nos dois lugares**, seguida de `npm test` e `npm run build` dentro de `diario_escolar_v3/` para atualizar `dist/`. Veja `../CLAUDE.md` para os detalhes desse fluxo.
+
 ## Funcionalidades
 
 - funcionamento offline e armazenamento local;
@@ -27,6 +36,7 @@ Aplicativo offline para chamadas, atividades qualitativas, avaliações pontuada
 - diário geral em formato de grade;
 - filtros de estudantes abaixo da média, pendentes e com paralela;
 - relatório por unidade e resumo das três unidades;
+- visão geral da turma na aba Relatórios: cartões de aulas, faltas, frequência média, atividades lançadas e aproveitamento médio, tabela com aulas/presenças/faltas/frequência por aluno, notas de cada teste e prova, e botão de impressão;
 - diário oficial A4 paisagem com notas das três unidades e folhas de frequência;
 - três categorias e quatro colunas por unidade (`1ª`, `2ª`, `3ª` e `M`), sem coluna de recuperação paralela no formulário oficial;
 - “Atividades de Fixação” com peso e período automático entre a primeira e a última atividade qualitativa;
