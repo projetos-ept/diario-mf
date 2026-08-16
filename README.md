@@ -103,7 +103,7 @@ Publique todo o conteúdo de `dist/pwa/` em um serviço HTTPS, como Cloudflare P
 
 - ao abrir o app (a partir de 1 segundo depois do carregamento);
 - ao voltar para a aba do navegador (por exemplo, ao trocar de aplicativo no celular e retornar);
-- automaticamente ~1,8s depois de qualquer alteração (chamada, atividade, avaliação, notas pontuadas ou configuração da unidade).
+- automaticamente ~1,8s depois de qualquer alteração (chamada, atividade, avaliação, notas pontuadas, configuração da unidade, ou criar/renomear/ativar/desativar uma disciplina).
 
 O topo da tela mostra o estado: `Salvo neste aparelho` (sem nuvem configurada), `N alteração(ões) pendente(s)` (ainda não chegou ao servidor), `Sincronizando...`, ou `✓ Sincronizado às HH:MM`. Se houver alterações pendentes, fechar ou recarregar a aba mostra o aviso padrão do navegador para confirmar a saída.
 

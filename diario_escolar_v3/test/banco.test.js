@@ -31,3 +31,18 @@ test('importação com mesmo id mescla estudantes',()=>{
   DB.mergeImport(db,{turmas:[{id:'t1',nome:'Turma 1',alunos:[{id:'02',nome:'Aluno 2'}]}]});
   assert.equal(db.classes[0].students.length,2);
 });
+
+test('mesclagem de disciplina preserva edição local mais recente (ativa/desativada e nome)',()=>{
+  const DB=database(),db=DB.fresh();
+  db.classes[0].subjects=[{id:'mat',name:'Matemática',active:false,updatedAt:'2026-01-02T00:00:00.000Z'}];
+  DB.mergeImport(db,{turmas:[{id:'t1',nome:'Turma 1',disciplinas:[{id:'mat',nome:'Matemática Antiga',ativa:true}]}]});
+  assert.equal(db.classes[0].subjects[0].active,false,'uma disciplina desativada localmente não pode voltar a ficar ativa por causa de uma cópia sem data');
+  assert.equal(db.classes[0].subjects[0].name,'Matemática');
+});
+
+test('mesclagem de disciplina aplica alteração remota genuinamente mais recente',()=>{
+  const DB=database(),db=DB.fresh();
+  db.classes[0].subjects=[{id:'mat',name:'Matemática',active:true,updatedAt:'2026-01-01T00:00:00.000Z'}];
+  DB.mergeImport(db,{turmas:[{id:'t1',nome:'Turma 1',disciplinas:[{id:'mat',nome:'Matemática',ativa:false,updatedAt:'2026-01-02T00:00:00.000Z'}]}]});
+  assert.equal(db.classes[0].subjects[0].active,false);
+});
