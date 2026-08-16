@@ -1,4 +1,4 @@
-var CACHE='diario-cmmsf-v3-9';
+var CACHE='diario-cmmsf-v3-10';
 var FILES=['./','./index.html','./css/app.css','./css/mobile.css','./css/official.css','./js/initial-data.js','./js/calculos.js','./js/banco.js','./js/sync.js','./js/official.js','./js/app.js','./assets/icon.svg','./manifest.webmanifest'];
 self.addEventListener('install',function(event){event.waitUntil(caches.open(CACHE).then(function(cache){return cache.addAll(FILES);}).then(function(){return self.skipWaiting();}));});
 self.addEventListener('activate',function(event){event.waitUntil(caches.keys().then(function(keys){return Promise.all(keys.filter(function(k){return k!==CACHE;}).map(function(k){return caches.delete(k);}));}).then(function(){return self.clients.claim();}));});
