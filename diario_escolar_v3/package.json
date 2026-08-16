@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "node build/build.mjs",
-    "test": "node --test test/calculos.test.js test/banco.test.js test/official.test.js test/pwa.test.js",
+    "test": "node --test test/calculos.test.js test/banco.test.js test/official.test.js test/sync.test.js test/pwa.test.js",
     "check": "npm test && npm run build"
   }
 }
