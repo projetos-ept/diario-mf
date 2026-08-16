@@ -28,6 +28,7 @@ O repositório mantém **duas cópias idênticas** do mesmo aplicativo:
 - 1ª, 2ª e 3ª unidades independentes;
 - chamadas vinculadas a turma, disciplina e unidade;
 - atividades qualitativas: `+`, `+-`, `-`, `NF` e `A`;
+- ao criar uma atividade qualitativa numa data que já tem chamada registrada, os ausentes da chamada entram automaticamente marcados como `A`, sem apagar nada da chamada original; o professor pode corrigir manualmente qualquer aluno depois;
 - componente qualitativo com peso configurável;
 - avaliações pontuadas: atividade, trabalho, teste, prova ou outro;
 - notas pontuadas salvas sozinhas ao sair da célula, apertar Enter ou parar de digitar por ~800ms, com aviso de status (`Salvando...`, `✓ Salvo às HH:MM`, alertas de validação) — sem precisar clicar em “Salvar notas” a cada nota;
