@@ -78,7 +78,7 @@ No formulário oficial, as três primeiras colunas de cada unidade são parcelas
 
 ## Importar uma turma
 
-Use o modelo `examples/importar-turma.json`. O sistema aceita chaves em português (`turmas`, `alunos`, `disciplinas`, `nome`) ou inglês (`classes`, `students`, `subjects`, `name`). IDs iguais são mesclados.
+Use o modelo `examples/importar-turma.json`, ou o exemplo pronto (turma de 9º ano com 5 alunos) que aparece em **Cadastros → Importar turmas**, com botão **Copiar exemplo** para colar direto no campo de importação. O sistema aceita chaves em português (`turmas`, `alunos`, `disciplinas`, `nome`) ou inglês (`classes`, `students`, `subjects`, `name`). IDs iguais são mesclados — por isso o exemplo usa o id `9-ano-exemplo` (não `9-ano-m`, que já existe nos dados reais desta escola); troque o `id`, o `nome` e os alunos pelos da turma real antes de importar de verdade, senão a importação mescla em cima de uma turma existente em vez de criar uma nova.
 
 ## Compilar novamente
 
