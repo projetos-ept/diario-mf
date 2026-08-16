@@ -30,6 +30,7 @@ O repositório mantém **duas cópias idênticas** do mesmo aplicativo:
 - atividades qualitativas: `+`, `+-`, `-`, `NF` e `A`;
 - componente qualitativo com peso configurável;
 - avaliações pontuadas: atividade, trabalho, teste, prova ou outro;
+- notas pontuadas salvas sozinhas ao sair da célula, apertar Enter ou parar de digitar por ~800ms, com aviso de status (`Salvando...`, `✓ Salvo às HH:MM`, alertas de validação) — sem precisar clicar em “Salvar notas” a cada nota;
 - limite de 10 pontos por unidade;
 - nota original e recuperação paralela;
 - a paralela só substitui a original quando for maior;
@@ -45,7 +46,7 @@ O repositório mantém **duas cópias idênticas** do mesmo aplicativo:
 - exportação de um HTML oficial independente, editável e pronto para imprimir;
 - exportação do banco completo e do relatório em JSON;
 - migração automática dos registros da versão antiga;
-- sincronização opcional com Cloudflare Worker + KV.
+- sincronização opcional com Cloudflare Worker + KV, automática ao abrir o app e ao voltar para a aba, com indicador de alterações pendentes e aviso ao fechar sem sincronizar.
 
 ## Uso no Android
 
@@ -92,6 +93,20 @@ No Windows, também é possível executar `compilar.bat`.
 ## PWA
 
 Publique todo o conteúdo de `dist/pwa/` em um serviço HTTPS, como Cloudflare Pages. Abra a página no Android e use **Instalar aplicativo**. O service worker guarda os arquivos para funcionamento offline.
+
+## Salvamento automático e sincronização
+
+**Notas pontuadas.** Cada nota digitada na aba **Pontuadas** é salva sozinha no aparelho — não é preciso clicar em “Salvar notas” depois de cada aluno. O salvamento acontece ao sair da célula (clicar fora), ao apertar `Enter`, ou automaticamente depois de ~800ms sem digitar, o que vier primeiro; isso evita salvar `1` e depois `10,0` como duas alterações separadas enquanto o professor ainda está digitando. Um indicador ao lado da tabela mostra `Salvando...`, `✓ Salvo às HH:MM`, ou o motivo de não ter salvo (ex.: falta preencher título/data/valor máximo, ou a nota ultrapassa o peso da avaliação). O botão **Salvar notas** continua existindo como confirmação manual, mas deixou de ser obrigatório.
+
+**Sincronização com a nuvem (quando configurada em Cadastros → Backup e nuvem).** Além do botão **Sincronizar agora**, o aplicativo sincroniza sozinho:
+
+- ao abrir o app (a partir de 1 segundo depois do carregamento);
+- ao voltar para a aba do navegador (por exemplo, ao trocar de aplicativo no celular e retornar);
+- automaticamente ~1,8s depois de qualquer alteração (chamada, atividade, avaliação, notas pontuadas ou configuração da unidade).
+
+O topo da tela mostra o estado: `Salvo neste aparelho` (sem nuvem configurada), `N alteração(ões) pendente(s)` (ainda não chegou ao servidor), `Sincronizando...`, ou `✓ Sincronizado às HH:MM`. Se houver alterações pendentes, fechar ou recarregar a aba mostra o aviso padrão do navegador para confirmar a saída.
+
+**Limitação conhecida — sem resolução de conflito por nota.** A sincronização mescla turmas, chamadas, atividades, avaliações e configurações inteiras, usando a alteração mais recente de cada registro (por data/hora), mas não é uma sincronização em tempo real nem por célula: dois aparelhos editando exatamente a mesma nota ao mesmo tempo não geram um aviso de conflito, só a mais recente prevalece. Isso é adequado para o uso pretendido — um professor usando um aparelho por vez, em horários diferentes — mas não foi desenhado para edição simultânea em vários dispositivos. Um controle de conflito de verdade (nota por nota, com aviso de "outro aparelho alterou esta nota") exigiria trocar o Worker atual (que hoje só guarda um blob JSON completo) por uma API com banco relacional e versionamento por registro; é um projeto bem maior, fora do escopo do Worker descrito abaixo.
 
 ## Estrutura do Cloudflare Worker
 
