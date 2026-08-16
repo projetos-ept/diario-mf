@@ -54,6 +54,9 @@ test('modelo oficial usa a recuperação maior em M sem criar coluna paralela',(
   assert.match(html,/official-media-entry/);
   assert.doesNotMatch(html,/RECUPERAÇÃO PARALELA|official-recovery-entry/);
 
+  const thead=html.match(/<thead>[\s\S]*?<\/thead>/)[0];
+  assert.equal((thead.match(/<tr>/g)||[]).length,5,'as três linhas de categoria (1ª/2ª/3ª) precisam de <tr> próprio, senão os rótulos se sobrepõem em navegadores móveis');
+
   model.cfg.overrides['u2|01|media']='6,5';
   const rebuilt=Official.buildModel(db,'t','mat');
   assert.equal(rebuilt.students[0].units.u2.media,'6,5');
