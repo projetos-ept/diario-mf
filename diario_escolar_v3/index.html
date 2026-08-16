@@ -80,7 +80,26 @@
 
     <section id="tab-registry" class="panel">
       <div class="two-cols">
-        <article class="card"><h2>Importar turmas</h2><p>Cole um JSON estruturado ou escolha um arquivo. A importação mescla alunos e disciplinas pelo identificador.</p><textarea id="importText" rows="9" placeholder='{"turmas":[{"id":"9-ano-m","nome":"9º ANO M","alunos":[]}]}'></textarea><input id="importFile" type="file" accept=".json,application/json"><div id="importPreview" class="notice muted">Nenhum JSON analisado.</div><button class="btn secondary" id="previewImportButton">Analisar</button><button class="btn primary" id="confirmImportButton" disabled>Importar e mesclar</button></article>
+        <article class="card"><h2>Importar turmas</h2><p>Cole um JSON estruturado ou escolha um arquivo. A importação mescla alunos e disciplinas pelo identificador.</p><div class="import-example"><div class="import-example-head"><span>Exemplo pronto: 9º ano com 5 alunos</span><button class="btn secondary" type="button" id="copyImportExampleButton">Copiar exemplo</button></div><pre id="importExampleJson">{
+  "turmas": [
+    {
+      "id": "9-ano-exemplo",
+      "nome": "9º ANO (exemplo)",
+      "turno": "MATUTINO",
+      "professor": "NOME DO PROFESSOR",
+      "disciplinas": [
+        { "id": "matematica", "nome": "Matemática" }
+      ],
+      "alunos": [
+        { "id": "01", "nome": "ALUNO EXEMPLO UM" },
+        { "id": "02", "nome": "ALUNO EXEMPLO DOIS" },
+        { "id": "03", "nome": "ALUNO EXEMPLO TRÊS" },
+        { "id": "04", "nome": "ALUNO EXEMPLO QUATRO" },
+        { "id": "05", "nome": "ALUNO EXEMPLO CINCO" }
+      ]
+    }
+  ]
+}</pre><p class="muted">Troque o <code>id</code>, o <code>nome</code> e os alunos pelos da sua turma real antes de importar — a importação mescla pelo <code>id</code>, então um <code>id</code> igual ao de uma turma existente altera essa turma em vez de criar uma nova.</p></div><textarea id="importText" rows="9" placeholder='{"turmas":[{"id":"9-ano-exemplo","nome":"9º ANO (exemplo)","alunos":[]}]}'></textarea><input id="importFile" type="file" accept=".json,application/json"><div id="importPreview" class="notice muted">Nenhum JSON analisado.</div><button class="btn secondary" id="previewImportButton">Analisar</button><button class="btn primary" id="confirmImportButton" disabled>Importar e mesclar</button></article>
         <article class="card"><h2>Disciplinas da turma</h2><div id="subjectList"></div><div class="inline-form"><input id="newSubjectName" type="text" placeholder="Ex.: Matemática - Reforço"><button class="btn primary" id="addSubjectButton">Adicionar</button></div><p class="muted">Disciplinas com registros podem ser desativadas, preservando o histórico.</p></article>
         <article class="card"><h2>Configuração da unidade</h2><label>Valor das atividades qualitativas<input id="qualWeight" type="number" min="0" max="10" step="0.1" value="3"></label><label>Média da unidade<input id="passingGrade" type="number" min="0" max="10" step="0.1" value="5"></label><div id="unitAllocation" class="notice"></div><button class="btn primary" id="saveUnitPlanButton">Salvar configuração</button><button class="btn secondary" id="toggleUnitButton">Encerrar unidade</button></article>
         <article class="card"><h2>Backup e nuvem</h2><button class="btn primary" id="exportAllButton">Exportar JSON completo</button><button class="btn secondary" id="importAllButton">Importar backup completo</button><input id="backupFile" type="file" accept=".json,application/json" hidden><hr><label>API GET/PUT<input id="cloudUrl" type="url" placeholder="https://...workers.dev/diario"></label><label>Bearer token<input id="cloudToken" type="password"></label><button class="btn secondary" id="saveCloudButton">Salvar nuvem</button><button class="btn primary" id="syncCloudButton">Sincronizar agora</button><div id="cloudStatus" class="notice muted">Nuvem opcional.</div></article>
