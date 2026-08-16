@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "diario-escolar-v3-api",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-15",
+  "workers_dev": true,
+  "kv_namespaces": [
+    {"binding":"DIARIO_DADOS","id":"COLE_AQUI_O_ID_DO_KV"}
+  ]
+}

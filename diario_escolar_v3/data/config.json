@@ -1,0 +1,912 @@
+{
+  "version": 1,
+  "escola": {
+    "nome": "COLÉGIO MUNICIPAL MIGUEL SANTOS FONTES",
+    "anoLetivo": "2026"
+  },
+  "configuracoes": {
+    "alunosPorPagina": 15,
+    "notaMinima": 0,
+    "notaMaxima": 10,
+    "casasDecimais": 1
+  },
+  "turmaAtualId": "6-ano-m",
+  "turmas": [
+    {
+      "id": "6-ano-m",
+      "nome": "6º ANO M",
+      "turno": "MATUTINO",
+      "professor": "LUCAS BATISTA",
+      "disciplina": "",
+      "alunos": [
+        {
+          "id": "01",
+          "nome": "ANA GABRIELA BATISTA DE JESUS",
+          "notas": {}
+        },
+        {
+          "id": "02",
+          "nome": "ANA JULIA MARTINS DOS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "03",
+          "nome": "ANDREY FERREIRA SANTANA",
+          "notas": {}
+        },
+        {
+          "id": "04",
+          "nome": "ASSIRLANE ARAUJO DE JESUS",
+          "notas": {}
+        },
+        {
+          "id": "05",
+          "nome": "AUGUSTO KENNEDY SANTOS RAMOS",
+          "notas": {}
+        },
+        {
+          "id": "06",
+          "nome": "DAVI LUIZ BARBOSA DE OLIVEIRA",
+          "notas": {}
+        },
+        {
+          "id": "07",
+          "nome": "DOUGLAS DE JESUS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "08",
+          "nome": "EVELYN NEIVA FERREIRA",
+          "notas": {}
+        },
+        {
+          "id": "09",
+          "nome": "GUSTAVO BATISTA FERREIRA",
+          "notas": {}
+        },
+        {
+          "id": "10",
+          "nome": "LAURA BEATRIZ DOS SANTOS GONÇALVES",
+          "notas": {}
+        },
+        {
+          "id": "11",
+          "nome": "LIVIA BATISTA NASCIMENTO",
+          "notas": {}
+        },
+        {
+          "id": "12",
+          "nome": "MARIA SOPHIA DOS SANTOS DANTAS",
+          "notas": {}
+        },
+        {
+          "id": "13",
+          "nome": "MARIA VITORIA MATOS BARBOSA",
+          "notas": {}
+        },
+        {
+          "id": "14",
+          "nome": "MARLLON BATISTA SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "15",
+          "nome": "MICAEL RIAN TELES DE SOUZA",
+          "notas": {}
+        },
+        {
+          "id": "16",
+          "nome": "NICHOLAS ROBERT MARTINS COSTA",
+          "notas": {}
+        },
+        {
+          "id": "17",
+          "nome": "PAULO HENRIQUE RODRIGUES RAMOS",
+          "notas": {}
+        },
+        {
+          "id": "18",
+          "nome": "PEDRO AUGUSTO SANTANA DOS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "19",
+          "nome": "RAFAELA DOS SANTOS GOMES",
+          "notas": {}
+        },
+        {
+          "id": "20",
+          "nome": "RYAN CARLOS SANTANA DE SOUZA",
+          "notas": {}
+        },
+        {
+          "id": "21",
+          "nome": "THAILAN EMANUEL ALVES BARBOSA",
+          "notas": {}
+        },
+        {
+          "id": "22",
+          "nome": "WESLLEY FERREIRA RIBEIRO DOS REIS",
+          "notas": {}
+        }
+      ],
+      "cabecalhoNotas": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "notas": {},
+      "frequencia": {
+        "mes": "",
+        "datas": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "registros": {}
+      }
+    },
+    {
+      "id": "7-ano-m",
+      "nome": "7º ANO M",
+      "turno": "MATUTINO",
+      "professor": "LUCAS BATISTA",
+      "disciplina": "",
+      "alunos": [
+        {
+          "id": "01",
+          "nome": "ADRIELE DE JESUS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "02",
+          "nome": "ALLAN MAX BATISTA PEREIRA",
+          "notas": {}
+        },
+        {
+          "id": "03",
+          "nome": "ANA JULIA MOTA DOS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "04",
+          "nome": "ANA VITÓRIA SOUZA DE JESUS LIMA",
+          "notas": {}
+        },
+        {
+          "id": "05",
+          "nome": "ANDRE VILAS BOAS LIMA",
+          "notas": {}
+        },
+        {
+          "id": "06",
+          "nome": "ARTHUR CRISTIANO FERREIRA SACRAMENTO",
+          "notas": {}
+        },
+        {
+          "id": "07",
+          "nome": "AYLLA RAFAELA PEREIRA COELHO",
+          "notas": {}
+        },
+        {
+          "id": "08",
+          "nome": "CARLOS HENRIQUE DE JESUS DOS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "09",
+          "nome": "IRAN GUIMARAES SANTANA",
+          "notas": {}
+        },
+        {
+          "id": "10",
+          "nome": "JOÃO LUIZ BATISTA DOS SANTOS NETO",
+          "notas": {}
+        },
+        {
+          "id": "11",
+          "nome": "JONATAS BATISTA DOS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "12",
+          "nome": "LEONARDO SENA DE SANTANA",
+          "notas": {}
+        },
+        {
+          "id": "13",
+          "nome": "MARCOS VINÍCIUS SANTOS DE JESUS",
+          "notas": {}
+        },
+        {
+          "id": "14",
+          "nome": "MARIA VITORIA DE JESUS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "15",
+          "nome": "PEDRO GABRIEL BARRETO SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "16",
+          "nome": "PEDRO HENRIQUE SOUZA ALVES",
+          "notas": {}
+        },
+        {
+          "id": "17",
+          "nome": "RANA VITORIA DE JESUS DOS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "18",
+          "nome": "RUAN VICTOR SANTIAGO SALDANHA DOS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "19",
+          "nome": "TAIS SANTOS DA TRINDADE",
+          "notas": {}
+        },
+        {
+          "id": "20",
+          "nome": "THIAGO VICTOR DA SILVA SALES",
+          "notas": {}
+        },
+        {
+          "id": "21",
+          "nome": "TIAGO SANTOS DA TRINDADE",
+          "notas": {}
+        },
+        {
+          "id": "22",
+          "nome": "VARLEI PASSOS BATISTA",
+          "notas": {}
+        },
+        {
+          "id": "23",
+          "nome": "WESLEY RAILAN DA SILVA ROCHA",
+          "notas": {}
+        },
+        {
+          "id": "24",
+          "nome": "YANNA GABRIELLE BARBOSA DE JESUS",
+          "notas": {}
+        },
+        {
+          "id": "25",
+          "nome": "YASMIM VITORIA CRUZ DOS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "26",
+          "nome": "YCARO GABRIEL BATISTA FERREIRA",
+          "notas": {}
+        },
+        {
+          "id": "27",
+          "nome": "YURÍ DE JESUS SILVA",
+          "notas": {}
+        }
+      ],
+      "cabecalhoNotas": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "notas": {},
+      "frequencia": {
+        "mes": "",
+        "datas": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "registros": {}
+      }
+    },
+    {
+      "id": "8-ano-m",
+      "nome": "8º ANO M",
+      "turno": "MATUTINO",
+      "professor": "LUCAS BATISTA",
+      "disciplina": "",
+      "alunos": [
+        {
+          "id": "01",
+          "nome": "ALANE DOS SANTOS SILVA",
+          "notas": {}
+        },
+        {
+          "id": "02",
+          "nome": "ANDRESSA SANTOS DE SANTANA",
+          "notas": {}
+        },
+        {
+          "id": "03",
+          "nome": "CARLOS VITÓR SENA AMERICO",
+          "notas": {}
+        },
+        {
+          "id": "04",
+          "nome": "ESTEFANE SANTANA SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "05",
+          "nome": "EVÈRTON DELLON FERREIRA SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "06",
+          "nome": "IGOR DANIEL TRINDADE REIS",
+          "notas": {}
+        },
+        {
+          "id": "07",
+          "nome": "JOYCE DOS SANTOS SOUZA PEREIRA",
+          "notas": {}
+        },
+        {
+          "id": "08",
+          "nome": "JULIA BATISTA DANTAS",
+          "notas": {}
+        },
+        {
+          "id": "09",
+          "nome": "JULIANA DOS SANTOS E SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "10",
+          "nome": "KAIKE JUNIOR DE OLIVEIRA COELHO",
+          "notas": {}
+        },
+        {
+          "id": "11",
+          "nome": "KAUAN PAIXÃO DOS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "12",
+          "nome": "KELLY SANTOS RAMOS",
+          "notas": {}
+        },
+        {
+          "id": "13",
+          "nome": "LAIS SOUZA SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "14",
+          "nome": "MIGUEL DE JESUS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "15",
+          "nome": "NATALIA DOS SANTOS PARANHOS",
+          "notas": {}
+        },
+        {
+          "id": "16",
+          "nome": "ROBERT DA TRINDADE SANTANA",
+          "notas": {}
+        },
+        {
+          "id": "17",
+          "nome": "RYAN CARLOS DA LUZ MENDES",
+          "notas": {}
+        },
+        {
+          "id": "18",
+          "nome": "SOFIA SOUSA SILVA",
+          "notas": {}
+        }
+      ],
+      "cabecalhoNotas": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "notas": {},
+      "frequencia": {
+        "mes": "",
+        "datas": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "registros": {}
+      }
+    },
+    {
+      "id": "9-ano-m",
+      "nome": "9º ANO M",
+      "turno": "MATUTINO",
+      "professor": "LUCAS BATISTA",
+      "disciplina": "",
+      "alunos": [
+        {
+          "id": "01",
+          "nome": "ARTHUR ARAUJO DE JESUS",
+          "notas": {}
+        },
+        {
+          "id": "02",
+          "nome": "ARTHUR SOUSA SILVA",
+          "notas": {}
+        },
+        {
+          "id": "03",
+          "nome": "DHONATAS NEVES BISPO",
+          "notas": {}
+        },
+        {
+          "id": "04",
+          "nome": "DIOGO DA SILVA MOTA",
+          "notas": {}
+        },
+        {
+          "id": "05",
+          "nome": "EMILY LETÍCIA DE SOUZA MARCELINO",
+          "notas": {}
+        },
+        {
+          "id": "06",
+          "nome": "EMILY VITORIA REIS MOTA",
+          "notas": {}
+        },
+        {
+          "id": "07",
+          "nome": "GRACIELLY SANTOS DE JESUS",
+          "notas": {}
+        },
+        {
+          "id": "08",
+          "nome": "JEANDERSON BATISTA GUIMARAES DE LIMA",
+          "notas": {}
+        },
+        {
+          "id": "09",
+          "nome": "JOÃO PAULO SANTO LEAL",
+          "notas": {}
+        },
+        {
+          "id": "10",
+          "nome": "LARA KELLY CONCEIÇÃO BASTOS",
+          "notas": {}
+        },
+        {
+          "id": "11",
+          "nome": "LAVINIA THAISA DOS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "12",
+          "nome": "LETICIA GABRIELA SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "13",
+          "nome": "LUANDERSON PINTO DOS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "14",
+          "nome": "NAIARA SANTOS TRINDADE",
+          "notas": {}
+        },
+        {
+          "id": "15",
+          "nome": "RENILDA DOS SANTOS ESTEVAM",
+          "notas": {}
+        },
+        {
+          "id": "16",
+          "nome": "TAIALA DOS SANTOS RAPOSO",
+          "notas": {}
+        },
+        {
+          "id": "17",
+          "nome": "WESLEY DA PAIXÃO OLIVEIRA",
+          "notas": {}
+        },
+        {
+          "id": "18",
+          "nome": "WESLEY RAMOS OLIVEIRA",
+          "notas": {}
+        },
+        {
+          "id": "19",
+          "nome": "WILIAM DAS NEVES DANTAS",
+          "notas": {}
+        },
+        {
+          "id": "20",
+          "nome": "WILKER DOS SANTOS FERREIRA",
+          "notas": {}
+        }
+      ],
+      "cabecalhoNotas": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "notas": {},
+      "frequencia": {
+        "mes": "",
+        "datas": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "registros": {}
+      }
+    },
+    {
+      "id": "6-ano-v",
+      "nome": "6º ANO V",
+      "turno": "VESPERTINO",
+      "professor": "LUCAS BATISTA",
+      "disciplina": "",
+      "alunos": [
+        {
+          "id": "01",
+          "nome": "ANA LIA LIMA ALVES",
+          "notas": {}
+        },
+        {
+          "id": "02",
+          "nome": "ANA PAULA REIS FERREIRA",
+          "notas": {}
+        },
+        {
+          "id": "03",
+          "nome": "ARTHUR CAMILO DE JESUS",
+          "notas": {}
+        },
+        {
+          "id": "04",
+          "nome": "ARTUR TRINDADE DE SANTANA",
+          "notas": {}
+        },
+        {
+          "id": "05",
+          "nome": "AYLA VITORIA SILVA BATISTA",
+          "notas": {}
+        },
+        {
+          "id": "06",
+          "nome": "DAVID BORGES DA SILVA",
+          "notas": {}
+        },
+        {
+          "id": "07",
+          "nome": "EMILLY GABRIELLE DOS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "08",
+          "nome": "EMILY MAIRA GONÇALVES DOS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "09",
+          "nome": "ISABELLA NASCIMENTO DE SOUZA SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "10",
+          "nome": "ISMAEL GUIMARÃES CARVALHO",
+          "notas": {}
+        },
+        {
+          "id": "11",
+          "nome": "ITALO GABRIEL SILVA SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "12",
+          "nome": "JULIA FERREIRA MENDES",
+          "notas": {}
+        },
+        {
+          "id": "13",
+          "nome": "KAUANNY FERREIRA SALES",
+          "notas": {}
+        },
+        {
+          "id": "14",
+          "nome": "LARA YANDRA SANTOS DA CONCEIÇÃO",
+          "notas": {}
+        },
+        {
+          "id": "15",
+          "nome": "LIDIANE DOS SANTOS DE OLIVEIRA",
+          "notas": {}
+        },
+        {
+          "id": "16",
+          "nome": "LUCCA BERNARD SILVA DOS SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "17",
+          "nome": "PAULO HENRIQUE RODRIGUES RAMOS",
+          "notas": {}
+        },
+        {
+          "id": "18",
+          "nome": "RYAN KAUE DA SILVA SANTOS",
+          "notas": {}
+        },
+        {
+          "id": "19",
+          "nome": "VITOR LUIS BATISTA VIEIRA",
+          "notas": {}
+        }
+      ],
+      "cabecalhoNotas": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "notas": {},
+      "frequencia": {
+        "mes": "",
+        "datas": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "registros": {}
+      }
+    }
+  ],
+  "modoAtual": "notas"
+}

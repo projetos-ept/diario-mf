@@ -1,0 +1,20 @@
+{
+  "schema": "cmmsf-turmas",
+  "versao": 1,
+  "turmas": [
+    {
+      "id": "9-ano-m",
+      "nome": "9º ANO M",
+      "turno": "MATUTINO",
+      "professor": "LUCAS BATISTA",
+      "disciplinas": [
+        {"id":"arte","nome":"Arte"},
+        {"id":"matematica-reforco","nome":"Matemática - Reforço"}
+      ],
+      "alunos": [
+        {"id":"01","nome":"NOME DO ESTUDANTE"},
+        {"id":"02","nome":"OUTRO ESTUDANTE"}
+      ]
+    }
+  ]
+}

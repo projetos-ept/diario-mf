@@ -1,0 +1,12 @@
+(function(root){
+  'use strict';
+  var KEY='cmmsf_cloud_v3';
+  function config(){try{return JSON.parse(localStorage.getItem(KEY)||'null');}catch(e){return null;}}
+  function saveConfig(url,token){var c={url:String(url||'').replace(/\/+$/,'') ,token:String(token||'').trim()};if(c.url&&!/\/diario$/.test(c.url))c.url+='/diario';localStorage.setItem(KEY,JSON.stringify(c));return c;}
+  function request(method,body){var c=config();if(!c||!c.url||!c.token)return Promise.reject(new Error('Configure o endereço e o token.'));if(!root.fetch)return Promise.reject(new Error('Navegador sem suporte a fetch.'));var options={method:method,headers:{Authorization:'Bearer '+c.token,Accept:'application/json'}};if(method==='PUT'){options.headers['Content-Type']='application/json';options.body=JSON.stringify(body);}return fetch(c.url,options).then(function(r){if(r.status===401)throw new Error('Token recusado (401).');if(!r.ok)throw new Error('API respondeu '+r.status+'.');return r.text();}).then(function(t){if(!t)return {};try{return JSON.parse(t);}catch(e){return {ok:true};}});}
+  function newer(a,b){return String(a&&a.createdAt||'')>=String(b&&b.createdAt||'')?a:b;}
+  function mergeList(local,remote,deleted){var map={},order=[];(local||[]).concat(remote||[]).forEach(function(x){if(!x||!x.id||deleted.indexOf(x.id)>=0)return;if(!map[x.id]){map[x.id]=x;order.push(x.id);}else map[x.id]=newer(map[x.id],x);});return order.map(function(id){return map[id];});}
+  function merge(local,remote){if(!remote||remote.version!==3)return local;var out=DiarioDB.normalize(DiarioDB.clone(local)),deleted=(out.records.deleted||[]).slice(),remoteOfficial=remote.official||{};(remote.records.deleted||[]).forEach(function(id){if(deleted.indexOf(id)<0)deleted.push(id);});['attendance','qualitative','scored'].forEach(function(k){out.records[k]=mergeList(out.records[k],remote.records[k],deleted);});out.records.deleted=deleted;DiarioDB.mergeImport(out,{classes:remote.classes||[]});(remote.plans||[]).forEach(function(p){DiarioDB.upsert(out.plans,p);});if(String(remote.updatedAt||'')>String(local.updatedAt||''))out.official=DiarioDB.clone(remoteOfficial);else Object.keys(remoteOfficial).forEach(function(k){if(!out.official[k])out.official[k]=DiarioDB.clone(remoteOfficial[k]);});return out;}
+  function sync(local){return request('GET').then(function(remote){var merged=merge(local,remote);return request('PUT',merged).then(function(){return merged;});});}
+  root.DiarioSync={config:config,saveConfig:saveConfig,request:request,merge:merge,sync:sync};
+}(this));

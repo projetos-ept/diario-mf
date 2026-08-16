@@ -1,0 +1,8 @@
+{
+  "name": "diario-escolar-v3-worker",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {"deploy":"wrangler deploy","dev":"wrangler dev"},
+  "devDependencies": {"wrangler":"^4.30.0"}
+}

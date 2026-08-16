@@ -1,0 +1,10 @@
+{
+  "name": "diario-escolar-cmmsf-v3",
+  "version": "3.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node build/build.mjs",
+    "test": "node --test test/calculos.test.js test/banco.test.js test/official.test.js test/pwa.test.js",
+    "check": "npm test && npm run build"
+  }
+}

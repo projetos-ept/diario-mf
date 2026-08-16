@@ -1,0 +1,13 @@
+{
+  "name": "Diário Escolar CMMSF",
+  "short_name": "Diário CMMSF",
+  "description": "Chamadas, atividades, avaliações e relatórios escolares offline.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eef3f7",
+  "theme_color": "#163a5f",
+  "icons": [
+    {"src":"assets/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
