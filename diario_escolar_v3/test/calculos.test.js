@@ -14,6 +14,13 @@ test('nota fica limitada ao valor máximo',()=>{
   assert.equal(C.considered(1,3,2),2);
 });
 
+test('aceita vírgula decimal digitada nos campos (padrão brasileiro), não só ponto',()=>{
+  assert.equal(C.considered('1,7','',2),1.7,'nota original com vírgula precisa ser interpretada como decimal, não descartada');
+  assert.equal(C.considered('0,3','1,1',2),1.1,'paralela com vírgula também precisa ser reconhecida');
+  const plan={qualitativeWeight:'2,5'};
+  assert.equal(C.allocation(plan,[{id:'teste',max:'3,0'}]),5.5,'pesos digitados com vírgula precisam somar corretamente');
+});
+
 test('componente qualitativo converte 5 de 9 para 1,7 de 3',()=>{
   const activities=[{ratings:{'01':'+'}},{ratings:{'01':'+-'}},{ratings:{'01':'NF'}}];
   assert.equal(C.qualitativeResult(activities,'01',3).grade,1.7);

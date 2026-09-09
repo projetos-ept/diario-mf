@@ -1,7 +1,7 @@
 (function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.DiarioCalculos=factory();}(this,function(){
   'use strict';
   var STATUS_POINTS={'+':3,'+-':2,'-':1,'NF':0,'A':0};
-  function number(value,fallback){var n=Number(value);return isFinite(n)?n:(fallback||0);}
+  function number(value,fallback){var n=Number(typeof value==='string'?value.replace(',','.'):value);return isFinite(n)?n:(fallback||0);}
   function round(value,places){var p=Math.pow(10,typeof places==='number'?places:1);return Math.round((number(value)+Number.EPSILON)*p)/p;}
   function considered(original,recovery,max){var o=original===''||original===null||typeof original==='undefined'?null:number(original);var r=recovery===''||recovery===null||typeof recovery==='undefined'?null:number(recovery);var result=o===null?r:r===null?o:Math.max(o,r);if(result===null)return null;return round(Math.max(0,Math.min(number(max,10),result)),2);}
   function allocation(plan,scored,ignoreId){var qualitative=number(plan&&plan.qualitativeWeight);var total=qualitative,i;for(i=0;i<(scored||[]).length;i++)if(scored[i].id!==ignoreId)total+=number(scored[i].max);return round(total,2);}
