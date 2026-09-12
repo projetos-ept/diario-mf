@@ -1,6 +1,6 @@
-# Diário Escolar CMMSF — versão 3
+# Diário Escolar — versão 3
 
-Aplicativo offline para chamadas, atividades qualitativas, avaliações pontuadas, recuperação paralela, três unidades e relatórios de turma.
+Aplicativo offline para chamadas, atividades qualitativas, avaliações pontuadas, recuperação paralela, unidades do ano letivo e relatórios de turma. Nasceu no Colégio Municipal Miguel Santos Fontes (CMMSF), mas o painel **Configurações** permite usá-lo em qualquer escola: nome, sigla, ano letivo, quantidade e nomes das unidades, padrões de avaliação, textos do diário oficial e cadastro de turmas e alunos são configuráveis dentro do próprio aplicativo.
 
 ## Arquivos para uso
 
@@ -22,26 +22,27 @@ O repositório mantém **duas cópias idênticas** do mesmo aplicativo:
 
 - funcionamento offline e armazenamento local;
 - modo celular sem rolagem lateral na chamada, com estudantes em cartões e botão de salvar flutuante;
-- cinco turmas e estudantes do JSON original;
+- turmas e estudantes iniciais do JSON original do CMMSF, que podem ser apagados em **Configurações → Começar do zero** para usar o sistema em outra escola;
+- painel **Configurações** com dados da escola, unidades do ano, padrões de avaliação, textos do diário oficial e cadastro de turmas e alunos (adicionar, editar, renomear e excluir), sem precisar editar JSON;
 - importação e mesclagem de turmas, alunos e disciplinas;
 - várias disciplinas dentro da mesma turma;
-- 1ª, 2ª e 3ª unidades independentes;
-- chamadas vinculadas a turma, disciplina e unidade;
+- 2, 3 ou 4 unidades independentes por ano letivo (semestres, unidades ou bimestres), com nomes configuráveis;
+- chamadas vinculadas a turma, disciplina e unidade, com botão para excluir a chamada de um dia lançada por engano;
 - atividades qualitativas: `+`, `+-`, `-`, `NF` e `A`;
 - ao criar uma atividade qualitativa numa data que já tem chamada registrada, os ausentes da chamada entram automaticamente marcados como `A`, sem apagar nada da chamada original; o professor pode corrigir manualmente qualquer aluno depois;
 - componente qualitativo com peso configurável;
 - avaliações pontuadas: atividade, trabalho, teste, prova ou outro;
-- notas pontuadas salvas sozinhas ao sair da célula, apertar Enter ou parar de digitar por ~800ms, com aviso de status (`Salvando...`, `✓ Salvo às HH:MM`, alertas de validação) — sem precisar clicar em “Salvar notas” a cada nota;
+- notas pontuadas salvas sozinhas ao sair da célula, apertar Enter ou parar de digitar por ~800ms, com aviso de status (`Salvando...`, `✓ Salvo às HH:MM`, alertas de validação) — sem precisar clicar em “Salvar notas” a cada nota; `Enter` pula para a mesma coluna do próximo aluno;
 - limite de 10 pontos por unidade;
 - nota original e recuperação paralela;
 - a paralela só substitui a original quando for maior;
 - diário geral em formato de grade;
 - filtros de estudantes abaixo da média, pendentes e com paralela;
-- relatório por unidade e resumo das três unidades;
+- relatório por unidade e resumo de todas as unidades do ano com média entre elas;
 - visão geral da turma na aba Relatórios: cartões de aulas, faltas, frequência média, atividades lançadas e aproveitamento médio, tabela com aulas/presenças/faltas/frequência por aluno, notas de cada teste e prova, e botão de impressão;
-- diário oficial A4 paisagem com notas das três unidades e folhas de frequência;
+- diário oficial A4 paisagem com notas de todas as unidades configuradas e folhas de frequência com o período real das chamadas;
 - três categorias e quatro colunas por unidade (`1ª`, `2ª`, `3ª` e `M`), sem coluna de recuperação paralela no formulário oficial;
-- “Atividades de Fixação” com peso e período automático entre a primeira e a última atividade qualitativa;
+- “Atividades de Fixação” (nome configurável) com peso e período automático entre a primeira e a última atividade qualitativa;
 - cabeçalhos, pesos, datas, lançamentos e médias do modelo oficial editáveis antes da impressão;
 - avisos matemáticos de pesos e notas sem bloquear a exportação do documento;
 - exportação de um HTML oficial independente, editável e pronto para imprimir;
@@ -53,24 +54,40 @@ O repositório mantém **duas cópias idênticas** do mesmo aplicativo:
 
 1. Copie `dist/diario-escolar-offline.html` para o tablet.
 2. Abra pelo navegador ou gerenciador de arquivos.
-3. Entre em **Cadastros** e adicione as disciplinas de cada turma.
-4. Escolha turma, disciplina e unidade na parte superior.
-5. Faça regularmente o **Exportar JSON completo**.
+3. Entre em **Configurações**, informe a escola, o ano letivo e as unidades, e cadastre (ou importe em **Cadastros**) as turmas e os alunos.
+4. Entre em **Cadastros** e adicione as disciplinas de cada turma.
+5. Escolha turma, disciplina e unidade na parte superior.
+6. Faça regularmente o **Exportar JSON completo**.
 
 Para gerar o documento da escola, abra **Diário oficial**, escolha notas, frequência ou ambos, confira os avisos e use **Exportar HTML oficial**. O arquivo exportado continua editável e contém os botões **Baixar HTML atualizado** e **Imprimir / salvar PDF**.
 
 Não apague os dados do navegador sem antes exportar o backup.
 
+## Painel de configurações (qualquer escola)
+
+A aba **Configurações** concentra tudo o que muda de uma escola para outra. Cada cartão tem o próprio botão de salvar e as alterações entram na sincronização com a nuvem como qualquer outro dado.
+
+| Cartão | O que controla |
+| --- | --- |
+| **Escola** | Nome, sigla, ano letivo e município. Aparecem no topo do app, nos relatórios e no cabeçalho do diário oficial. |
+| **Unidades do ano** | 2, 3 ou 4 divisões (semestres, unidades ou bimestres) e o nome de cada uma. Cada unidade continua valendo 10 pontos. Uma unidade só pode ser removida se não tiver chamadas, atividades ou notas lançadas. |
+| **Padrões de avaliação** | Média para aprovação e valor padrão das atividades qualitativas usados quando uma unidade nova é aberta em qualquer turma. Unidades já configuradas em **Cadastros → Configuração da unidade** não mudam. |
+| **Diário oficial — textos** | Nome da coluna qualitativa (“Atividades de Fixação”), títulos das folhas de notas e de frequência e alunos por página. Em branco volta ao padrão. |
+| **Turmas e alunos** | Adicionar, editar (nome, turno, professor) e excluir turmas; adicionar, renomear e remover alunos (a numeração continua a partir do maior número existente). Excluir uma turma com registros pede confirmação digitando `EXCLUIR`. |
+| **Começar do zero** | Apaga todas as turmas e registros do aparelho (e da nuvem na próxima sincronização) mantendo escola, unidades e padrões. Pede a palavra `APAGAR`. |
+
+Exclusões feitas aqui geram “lápides” (`records.deleted`, com data em `records.deletedAt`) para que a sincronização não traga de volta uma turma, um aluno ou uma chamada excluída. Salvar de novo um registro excluído (mesma data/título) ou importar manualmente um JSON com o mesmo aluno remove a lápide.
+
 ## Cálculo da unidade
 
 O professor distribui até 10 pontos. Exemplo:
 
-| Componente | Máximo |
-|---|---:|
-| Qualitativas | 3,0 |
-| Teste | 2,0 |
-| Prova | 5,0 |
-| Total | 10,0 |
+| Componente   | Máximo |
+| ------------ | ------:|
+| Qualitativas | 3,0    |
+| Teste        | 2,0    |
+| Prova        | 5,0    |
+| Total        | 10,0   |
 
 As qualitativas usam pontos internos (`+`=3, `+-`=2, `-`=1, `NF/A`=0) e são convertidas proporcionalmente ao peso do componente. A nota considerada de uma avaliação pontuada é `máximo(original, paralela)`.
 
@@ -99,7 +116,7 @@ Publique todo o conteúdo de `dist/pwa/` em um serviço HTTPS, como Cloudflare P
 
 **Notas pontuadas.** Cada nota digitada na aba **Pontuadas** é salva sozinha no aparelho — não é preciso clicar em “Salvar notas” depois de cada aluno. O salvamento acontece ao sair da célula (clicar fora), ao apertar `Enter`, ou automaticamente depois de ~800ms sem digitar, o que vier primeiro; isso evita salvar `1` e depois `10,0` como duas alterações separadas enquanto o professor ainda está digitando. Um indicador ao lado da tabela mostra `Salvando...`, `✓ Salvo às HH:MM`, ou o motivo de não ter salvo (ex.: falta preencher título/data/valor máximo, ou a nota ultrapassa o peso da avaliação). O botão **Salvar notas** continua existindo como confirmação manual, mas deixou de ser obrigatório. Os campos de nota (e também "Valor máximo", "Valor das atividades qualitativas" e "Média da unidade") aceitam vírgula decimal (`1,7`) e ponto (`1.7`) — evita o problema comum de campos numéricos do navegador rejeitarem a vírgula e transformarem `1,7` em `17` no meio da digitação.
 
-**Sincronização com a nuvem (quando configurada em Cadastros → Backup e nuvem).** Além do botão **Sincronizar agora**, o aplicativo sincroniza sozinho:
+**Sincronização com a nuvem (quando configurada em Cadastros → Backup e nuvem).** Escola, padrões, unidades, turmas, alunos e disciplinas também são mesclados pela alteração mais recente (`updatedAt`), e exclusões respeitam as lápides descritas acima. Além do botão **Sincronizar agora**, o aplicativo sincroniza sozinho:
 
 - ao abrir o app (a partir de 1 segundo depois do carregamento);
 - ao voltar para a aba do navegador (por exemplo, ao trocar de aplicativo no celular e retornar);
@@ -128,10 +145,10 @@ O projeto utiliza um **blob JSON único**, e não CRUD por aluno ou por chamada.
 
 ### Variáveis e recursos
 
-| Nome | Tipo | Finalidade |
-|---|---|---|
+| Nome           | Tipo                    | Finalidade                                    |
+| -------------- | ----------------------- | --------------------------------------------- |
 | `DIARIO_DADOS` | Binding de namespace KV | Armazena `diario:v3` e os backups automáticos |
-| `TABLET_TOKEN` | Secret do Worker | Token exclusivo validado no cabeçalho Bearer |
+| `TABLET_TOKEN` | Secret do Worker        | Token exclusivo validado no cabeçalho Bearer  |
 
 `TABLET_TOKEN` é um segredo criado no próprio Worker. **Não use um API Token administrativo da conta Cloudflare.** O valor não deve ser escrito em `wrangler.jsonc`, enviado ao GitHub ou incluído no código-fonte.
 
@@ -143,25 +160,25 @@ Todas as operações usam a rota `/diario` e o cabeçalho:
 Authorization: Bearer SEU_TOKEN_EXCLUSIVO
 ```
 
-| Método | Rota | Comportamento |
-|---|---|---|
-| `GET` | `/diario` | Devolve o banco JSON completo; retorna `{}` quando ainda não há dados |
-| `PUT` | `/diario` | Valida e substitui o banco JSON completo |
-| `OPTIONS` | `/diario` | Responde à verificação CORS do navegador |
+| Método    | Rota      | Comportamento                                                         |
+| --------- | --------- | --------------------------------------------------------------------- |
+| `GET`     | `/diario` | Devolve o banco JSON completo; retorna `{}` quando ainda não há dados |
+| `PUT`     | `/diario` | Valida e substitui o banco JSON completo                              |
+| `OPTIONS` | `/diario` | Responde à verificação CORS do navegador                              |
 
 O `PUT` aceita no máximo 1 MB e exige um JSON da versão 3 contendo `classes` e `records`. Antes de substituir `diario:v3`, o Worker guarda a versão anterior em `backup:v3:<timestamp>`, com expiração de 90 dias. Esses backups não possuem endpoint público de restauração; a recuperação é feita pelo painel do KV ou por ferramenta administrativa.
 
 Respostas importantes:
 
-| Código | Significado |
-|---:|---|
-| `200` | Leitura ou gravação concluída |
-| `204` | Verificação CORS aceita |
-| `400` | JSON inválido ou incompatível com a versão 3 |
-| `401` | Bearer token ausente ou incorreto |
-| `404` | Rota diferente de `/diario` |
-| `405` | Método não permitido |
-| `413` | Corpo vazio ou maior que 1 MB |
+| Código | Significado                                  |
+| ------:| -------------------------------------------- |
+| `200`  | Leitura ou gravação concluída                |
+| `204`  | Verificação CORS aceita                      |
+| `400`  | JSON inválido ou incompatível com a versão 3 |
+| `401`  | Bearer token ausente ou incorreto            |
+| `404`  | Rota diferente de `/diario`                  |
+| `405`  | Método não permitido                         |
+| `413`  | Corpo vazio ou maior que 1 MB                |
 
 ### Fluxo de sincronização
 

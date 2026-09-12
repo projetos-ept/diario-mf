@@ -1,6 +1,6 @@
 {
-  "name": "Diário Escolar CMMSF",
-  "short_name": "Diário CMMSF",
+  "name": "Diário Escolar",
+  "short_name": "Diário",
   "description": "Chamadas, atividades, avaliações e relatórios escolares offline.",
   "start_url": "./index.html",
   "scope": "./",
