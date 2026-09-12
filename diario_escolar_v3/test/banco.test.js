@@ -67,3 +67,80 @@ test('exemplo de importação usa um id que não colide com nenhuma turma real d
   const html=fs.readFileSync('index.html','utf8'),match=html.match(/<pre id="importExampleJson">([\s\S]*?)<\/pre>/),obj=JSON.parse(match[1]);
   assert.ok(!realIds.includes(obj.turmas[0].id),'o id do exemplo de importação colide com uma turma real e apagaria/renomearia alunos de verdade ao ser importado sem edição');
 });
+
+test('configurações e escola recebem valores padrão em bancos antigos sem esses campos',()=>{
+  const DB=database();
+  const db=DB.normalize({schema:'br.edu.cmmsf.diario',version:3,classes:[],records:{attendance:[],qualitative:[],scored:[],deleted:[]}});
+  assert.equal(db.settings.passingGrade,5);
+  assert.equal(db.settings.qualitativeWeight,3);
+  assert.equal(db.settings.official.qualitativeLabel,'Atividades de Fixação');
+  assert.equal(db.units.length,3);
+  assert.equal(db.context.unitId,'u1');
+  assert.ok(db.school.nome);
+  assert.equal(Object.keys(db.records.deletedAt).length,0);
+});
+
+test('plano novo usa os padrões de avaliação configurados na escola',()=>{
+  const DB=database(),db=DB.fresh();
+  db.settings.passingGrade=6;db.settings.qualitativeWeight=2;
+  const p=DB.getPlan(db,{classId:'t1',subjectId:'mat',unitId:'u1'});
+  assert.equal(p.passingGrade,6);
+  assert.equal(p.qualitativeWeight,2);
+  assert.ok(p.updatedAt);
+});
+
+test('cadastro de alunos gera o próximo número com zero à esquerda e mantém a ordem',()=>{
+  const DB=database(),db=DB.fresh(),cls=db.classes[0];
+  const s=DB.addStudent(db,cls,'Aluno Novo');
+  assert.equal(s.id,'02');
+  cls.students.push({id:'10',name:'Dez'});
+  assert.equal(DB.nextStudentId(cls),'11');
+  DB.removeStudent(db,cls,'02');
+  assert.equal(cls.students.length,2);
+  assert.equal(DB.hasTomb(db,'student|t1|02'),true);
+  assert.ok(db.records.deletedAt['student|t1|02']);
+  DB.mergeImport(db,{turmas:[{id:'t1',alunos:[{id:'02',nome:'Voltou pela nuvem'}]}]},{respectTombstones:true});
+  assert.equal(cls.students.some(x=>x.id==='02'),false,'a sincronização não pode ressuscitar um aluno removido');
+  DB.mergeImport(db,{turmas:[{id:'t1',alunos:[{id:'02',nome:'Voltou por importação manual'}]}]});
+  assert.equal(cls.students.some(x=>x.id==='02'),true,'a importação manual é intenção explícita e restaura o aluno');
+  assert.equal(DB.hasTomb(db,'student|t1|02'),false);
+  assert.ok(db.records.restoredAt['student|t1|02']);
+});
+
+test('excluir turma apaga registros com lápides e um id igual não é reaproveitado por engano',()=>{
+  const DB=database(),db=DB.fresh();
+  db.records.attendance.push({id:'att|t1|mat|u1|2026-01-01',classId:'t1',subjectId:'mat',unitId:'u1',date:'2026-01-01',absent:[],createdAt:'2026-01-01T00:00:00.000Z'});
+  db.plans.push({id:'t1|mat|u1',classId:'t1',subjectId:'mat',unitId:'u1'});
+  db.official['t1|mat']={units:{}};
+  assert.equal(DB.classRecordCount(db,'t1'),1);
+  const removed=DB.removeClass(db,'t1');
+  assert.equal(removed.records,1);
+  assert.equal(db.classes.length,0);
+  assert.equal(db.records.attendance.length,0);
+  assert.equal(db.plans.length,0);
+  assert.deepEqual(Object.keys(db.official),[]);
+  assert.ok(db.records.deleted.includes('class|t1'));
+  assert.ok(db.records.deleted.includes('att|t1|mat|u1|2026-01-01'));
+  const again=DB.addClass(db,{name:'T1'});
+  assert.notEqual(again.id,'t1','uma turma nova não pode herdar o id de uma turma excluída, senão a lápide a apagaria na sincronização');
+});
+
+test('salvar de novo um registro excluído (mesma data/título) remove a lápide',()=>{
+  const DB=database(),db=DB.fresh(),rec={id:'qual|t1|mat|u1|2026-02-02|atividade-1',classId:'t1',subjectId:'mat',unitId:'u1',date:'2026-02-02',title:'Atividade 1',ratings:{'01':'+'},createdAt:'2026-02-02T00:00:00.000Z'};
+  DB.saveRecord(db,'qualitative',rec);
+  DB.deleteRecord(db,'qualitative',rec.id);
+  assert.equal(db.records.qualitative.length,0);
+  assert.ok(DB.hasTomb(db,rec.id));
+  DB.saveRecord(db,'qualitative',Object.assign({},rec,{createdAt:'2026-02-03T00:00:00.000Z'}));
+  assert.equal(db.records.qualitative.length,1);
+  assert.equal(DB.hasTomb(db,rec.id),false);
+});
+
+test('turma editada mais recentemente vence na mesclagem',()=>{
+  const DB=database(),db=DB.fresh();
+  db.classes[0].name='Nome local novo';db.classes[0].updatedAt='2026-01-05T00:00:00.000Z';
+  DB.mergeImport(db,{turmas:[{id:'t1',nome:'Nome remoto velho',updatedAt:'2026-01-01T00:00:00.000Z',alunos:[]}]});
+  assert.equal(db.classes[0].name,'Nome local novo');
+  DB.mergeImport(db,{turmas:[{id:'t1',nome:'Nome remoto novo',updatedAt:'2026-01-09T00:00:00.000Z',alunos:[]}]});
+  assert.equal(db.classes[0].name,'Nome remoto novo');
+});

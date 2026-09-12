@@ -17,6 +17,10 @@ Depois de editar os dois lados:
 4. Ao alterar `sw.js`, avance a constante `CACHE` (ex.: `diario-cmmsf-v3-6` → `diario-cmmsf-v3-7`) nos dois `sw.js`, para o navegador trocar a versão em cache no próximo acesso — sem exigir que o usuário limpe dados manualmente.
 5. Rode uma verificação funcional real antes de considerar a tarefa concluída (Playwright ou equivalente): abrir a página, exercitar o fluxo alterado e checar o console por erros. Não confie só no `npm test`.
 
+A aba **Configurações** (`#tab-settings`) é o painel de administração da escola: `db.school` (nome, sigla, anoLetivo, municipio, `updatedAt`), `db.units` (2 a 4 unidades `u1..uN`, `db.unitsUpdatedAt`), `db.settings` (`passingGrade`, `qualitativeWeight`, `official.{qualitativeLabel,gradesCaption,frequencyCaption,studentsPerPage}`, `updatedAt`) e o CRUD de turmas/alunos via `DiarioDB.addClass/removeClass/addStudent/removeStudent`. Nada do app pode voltar a ter o nome da escola, "três unidades" ou `['u1','u2','u3']` fixos no código: `official.js` deriva as unidades de `db.units` (e, no HTML exportado, do próprio DOM) e os textos de `db.settings.official`; `app.js` monta cabeçalhos a partir de `db.units`.
+
+Exclusões usam lápides em `records.deleted` (chaves `class|<id>`, `student|<classId>|<id>` e ids de registros) com carimbos em `records.deletedAt`/`records.restoredAt`; `sync.js` só remove um item se a exclusão for mais recente que a restauração. Use `DiarioDB.saveRecord/deleteRecord` em vez de mexer em `records.deleted` direto.
+
 `diario_escolar_v3/data/config.json` guarda os mesmos dados iniciais de turmas/alunos que `js/initial-data.js`, em formato mais legível; não é necessário mantê-lo sincronizado automaticamente a cada alteração, só quando os dados iniciais da escola mudarem de fato.
 
 ## Coisas que não podem quebrar

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#163a5f">
-  <title>Diário Escolar CMMSF</title>
+  <title>Diário Escolar</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/app.css">
@@ -13,7 +13,7 @@
 </head>
 <body>
   <header class="topbar">
-    <div><h1>Diário Escolar</h1><p id="schoolName">CMMSF • offline</p></div>
+    <div><h1>Diário Escolar</h1><p id="schoolName">funciona offline</p></div>
     <div id="saveState" class="save-state">Dados locais</div>
   </header>
 
@@ -32,6 +32,7 @@
     <button data-tab="registry">Cadastros</button>
     <button data-tab="reports">Relatórios</button>
     <button data-tab="official">Diário oficial</button>
+    <button data-tab="settings">Configurações</button>
   </nav>
 
   <main>
@@ -40,7 +41,7 @@
         <div><h2>Chamada</h2><p>Todos começam presentes. Marque apenas os ausentes.</p></div>
         <label>Data<input id="attendanceDate" type="date"></label>
       </div>
-      <div class="toolbar attendance-actions"><span class="pill">Presentes: <b id="presentCount">0</b></span><span class="pill danger">Ausentes: <b id="absentCount">0</b></span><button class="btn secondary" id="allPresentButton">Todos presentes</button><button class="btn primary push" id="saveAttendanceButton">Salvar chamada</button></div>
+      <div class="toolbar attendance-actions"><span class="pill">Presentes: <b id="presentCount">0</b></span><span class="pill danger">Ausentes: <b id="absentCount">0</b></span><button class="btn secondary" id="allPresentButton">Todos presentes</button><button class="btn danger push" id="deleteAttendanceButton" hidden>Excluir chamada</button><button class="btn primary" id="saveAttendanceButton">Salvar chamada</button></div>
       <div class="table-wrap"><table><thead><tr><th class="num">Nº</th><th class="student">Estudante</th><th class="small">Ausente</th></tr></thead><tbody id="attendanceBody"></tbody></table></div>
     </section>
 
@@ -101,7 +102,7 @@
   ]
 }</pre><p class="muted">Troque o <code>id</code>, o <code>nome</code> e os alunos pelos da sua turma real antes de importar — a importação mescla pelo <code>id</code>, então um <code>id</code> igual ao de uma turma existente altera essa turma em vez de criar uma nova.</p></div><textarea id="importText" rows="9" placeholder='{"turmas":[{"id":"9-ano-exemplo","nome":"9º ANO (exemplo)","alunos":[]}]}'></textarea><input id="importFile" type="file" accept=".json,application/json"><div id="importPreview" class="notice muted">Nenhum JSON analisado.</div><button class="btn secondary" id="previewImportButton">Analisar</button><button class="btn primary" id="confirmImportButton" disabled>Importar e mesclar</button></article>
         <article class="card"><h2>Disciplinas da turma</h2><div id="subjectList"></div><div class="inline-form"><input id="newSubjectName" type="text" placeholder="Ex.: Matemática - Reforço"><button class="btn primary" id="addSubjectButton">Adicionar</button></div><p class="muted">Disciplinas com registros podem ser desativadas, preservando o histórico.</p></article>
-        <article class="card"><h2>Configuração da unidade</h2><label>Valor das atividades qualitativas<input id="qualWeight" type="text" inputmode="decimal" value="3"></label><label>Média da unidade<input id="passingGrade" type="text" inputmode="decimal" value="5"></label><div id="unitAllocation" class="notice"></div><button class="btn primary" id="saveUnitPlanButton">Salvar configuração</button><button class="btn secondary" id="toggleUnitButton">Encerrar unidade</button></article>
+        <article class="card"><h2>Configuração da unidade</h2><p class="muted">Vale só para a turma, disciplina e unidade selecionadas. Os valores padrão para novas unidades ficam em Configurações.</p><label>Valor das atividades qualitativas<input id="qualWeight" type="text" inputmode="decimal" value="3"></label><label>Média da unidade<input id="passingGrade" type="text" inputmode="decimal" value="5"></label><div id="unitAllocation" class="notice"></div><button class="btn primary" id="saveUnitPlanButton">Salvar configuração</button><button class="btn secondary" id="toggleUnitButton">Encerrar unidade</button></article>
         <article class="card"><h2>Backup e nuvem</h2><button class="btn primary" id="exportAllButton">Exportar JSON completo</button><button class="btn secondary" id="importAllButton">Importar backup completo</button><input id="backupFile" type="file" accept=".json,application/json" hidden><hr><label>API GET/PUT<input id="cloudUrl" type="url" placeholder="https://...workers.dev/diario"></label><label>Bearer token<input id="cloudToken" type="password"></label><button class="btn secondary" id="saveCloudButton">Salvar nuvem</button><button class="btn primary" id="syncCloudButton">Sincronizar agora</button><div id="cloudStatus" class="notice muted">Nuvem opcional.</div></article>
       </div>
     </section>
@@ -111,13 +112,13 @@
       <div id="reportHeader" class="report-header"></div>
       <div id="reportCards" class="cards"></div>
       <div class="table-wrap gradebook-wrap"><table id="reportTable"><thead id="reportHead"></thead><tbody id="reportBody"></tbody></table></div>
-      <h3>Resumo das três unidades</h3>
-      <div class="table-wrap"><table><thead><tr><th class="num">Nº</th><th class="student">Estudante</th><th>1ª Unidade</th><th>2ª Unidade</th><th>3ª Unidade</th></tr></thead><tbody id="annualBody"></tbody></table></div>
+      <h3>Resumo das unidades</h3>
+      <div class="table-wrap"><table><thead id="annualHead"></thead><tbody id="annualBody"></tbody></table></div>
     </section>
 
     <section id="tab-official" class="panel">
       <div class="panel-head">
-        <div><h2>Diário oficial da escola</h2><p>Modelo A4 paisagem preenchido com as três unidades e a frequência da turma.</p></div>
+        <div><h2>Diário oficial da escola</h2><p>Modelo A4 paisagem preenchido com todas as unidades do ano e a frequência da turma.</p></div>
         <label>Conteúdo<select id="officialMode"><option value="complete">Notas e frequência</option><option value="grades">Somente notas</option><option value="attendance">Somente frequência</option></select></label>
         <button class="btn secondary" id="officialResetButton">Recriar mapeamento</button>
         <button class="btn secondary" id="officialPrintButton">Imprimir visualização</button>
@@ -126,6 +127,25 @@
       <div class="official-help"><b>Como funciona:</b> os cabeçalhos, categorias, pontuações, datas, notas e médias podem ser editados. A média de cada unidade pode ser preenchida diretamente, mesmo quando as três notas parciais estiverem vazias. O HTML exportado é uma cópia independente e não altera os dados do sistema.</div>
       <div id="officialValidation" class="official-validation"></div>
       <div id="officialPreviewWrap" class="official-preview-wrap"><div id="officialPreview"></div></div>
+    </section>
+
+    <section id="tab-settings" class="panel">
+      <div class="panel-head"><div><h2>Configurações</h2><p>Personalize o sistema para a sua escola: identificação, unidades do ano, padrões de avaliação, textos do diário oficial e cadastro de turmas e alunos.</p></div></div>
+      <div class="two-cols">
+        <article class="card"><h2>Escola</h2><p class="muted">Aparece no cabeçalho do aplicativo, nos relatórios e no diário oficial.</p><label>Nome da escola<input id="schoolNameInput" type="text" placeholder="Ex.: Escola Municipal Nova Esperança"></label><label>Sigla (opcional)<input id="schoolShortInput" type="text" placeholder="Ex.: EMNE" maxlength="20"></label><label>Ano letivo<input id="schoolYearInput" type="text" inputmode="numeric" placeholder="Ex.: 2026" maxlength="9"></label><label>Município / UF (opcional)<input id="schoolCityInput" type="text" placeholder="Ex.: Salvador - BA"></label><button class="btn primary" id="saveSchoolButton">Salvar escola</button></article>
+        <article class="card"><h2>Unidades do ano</h2><p class="muted">Bimestres, trimestres ou unidades: escolha quantas divisões o ano letivo tem e como cada uma se chama.</p><label>Quantidade<select id="unitCountSelect"><option value="2">2 (semestres)</option><option value="3">3 (unidades)</option><option value="4">4 (bimestres)</option></select></label><div id="unitNamesList"></div><div id="unitsNotice" class="notice muted">Cada unidade continua valendo 10 pontos.</div><button class="btn primary" id="saveUnitsButton">Salvar unidades</button></article>
+        <article class="card"><h2>Padrões de avaliação</h2><p class="muted">Usados quando uma unidade nova é aberta em qualquer turma. Unidades já configuradas em Cadastros não mudam.</p><label>Média para aprovação (0 a 10)<input id="defaultPassingInput" type="text" inputmode="decimal" value="5"></label><label>Valor padrão das atividades qualitativas (0 a 10)<input id="defaultQualWeightInput" type="text" inputmode="decimal" value="3"></label><button class="btn primary" id="saveDefaultsButton">Salvar padrões</button></article>
+        <article class="card"><h2>Diário oficial — textos</h2><p class="muted">Rótulos impressos no modelo oficial. Deixe em branco para voltar ao padrão.</p><label>Nome da coluna qualitativa<input id="officialQualLabelInput" type="text" placeholder="Atividades de Fixação"></label><label>Título da folha de notas<input id="officialGradesCaptionInput" type="text" placeholder="DIÁRIO DE CLASSE — REGISTRO DE NOTAS"></label><label>Título da folha de frequência<input id="officialFrequencyCaptionInput" type="text" placeholder="DIÁRIO DE CLASSE / LISTA DE FREQUÊNCIA"></label><label>Alunos por página<input id="officialPerPageInput" type="text" inputmode="numeric" value="15"></label><button class="btn primary" id="saveOfficialTextsButton">Salvar textos</button></article>
+        <article class="card span-2"><h2>Turmas e alunos</h2><p class="muted">Cadastre turmas e alunos diretamente aqui ou importe um JSON em Cadastros. Excluir uma turma apaga também as chamadas, atividades e notas dela.</p>
+          <div id="classAdminList" class="admin-list"></div>
+          <div class="admin-form"><label>Nova turma<input id="newClassName" type="text" placeholder="Ex.: 7º ANO B"></label><label>Turno<select id="newClassShift"><option>MATUTINO</option><option>VESPERTINO</option><option>NOTURNO</option><option>INTEGRAL</option></select></label><label>Professor(a)<input id="newClassTeacher" type="text" placeholder="Nome do professor"></label><button class="btn primary" id="addClassButton">Adicionar turma</button></div>
+          <hr>
+          <label>Alunos da turma<select id="adminClassSelect"></select></label>
+          <div id="studentAdminList" class="admin-list"></div>
+          <div class="admin-form"><label class="grow">Novo aluno<input id="newStudentName" type="text" placeholder="Nome completo"></label><button class="btn primary" id="addStudentButton">Adicionar aluno</button></div>
+        </article>
+        <article class="card span-2"><h2>Começar do zero</h2><p class="muted">Remove todas as turmas, alunos, chamadas, atividades e notas deste aparelho (e da nuvem na próxima sincronização). Escola, unidades e padrões são mantidos. Exporte um backup antes.</p><button class="btn danger" id="resetSchoolButton">Apagar todas as turmas e registros</button></article>
+      </div>
     </section>
   </main>
 
