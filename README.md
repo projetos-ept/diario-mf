@@ -45,7 +45,7 @@ O repositório mantém **duas cópias idênticas** do mesmo aplicativo:
 - “Atividades de Fixação” (nome configurável) com peso e período automático entre a primeira e a última atividade qualitativa;
 - cabeçalhos, pesos, datas, lançamentos e médias do modelo oficial editáveis antes da impressão;
 - avisos matemáticos de pesos e notas sem bloquear a exportação do documento;
-- exportação de um HTML oficial independente, editável e pronto para imprimir;
+- exportação de um HTML oficial independente, editável e pronto para imprimir (as folhas ficam dentro de um `<main>` próprio, para que a pré-visualização de impressão do arquivo exportado nunca saia em branco);
 - exportação do banco completo e do relatório em JSON;
 - migração automática dos registros da versão antiga;
 - sincronização opcional com Cloudflare Worker + KV, automática ao abrir o app e ao voltar para a aba, com indicador de alterações pendentes e aviso ao fechar sem sincronizar.
