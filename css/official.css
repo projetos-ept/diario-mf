@@ -16,7 +16,8 @@
 @media print{
  @page{size:A4 landscape;margin:5mm}
  html,body{width:auto!important;background:#fff!important;overflow:visible!important}
- body>*:not(main){display:none!important}
+ body.print-official>*:not(main){display:none!important}
+ body.print-official main{max-width:none!important;padding:0!important;margin:0!important;overflow:visible!important}
  main{max-width:none!important;padding:0!important;margin:0!important;overflow:visible!important}
  body.print-official main>.panel:not(#tab-official){display:none!important}
  body.print-official #tab-official{display:block!important;margin:0!important;padding:0!important}

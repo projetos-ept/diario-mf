@@ -48,3 +48,16 @@ test('exportador oficial é autônomo, salvável e não bloqueia dados incomplet
   assert.match(source,/showValidation\(\);\s*clone=/);
   assert.doesNotThrow(()=>new vm.Script(Official.exportStandaloneScript()));
 });
+
+test('impressão do HTML oficial exportado não some com a folha',()=>{
+  const officialCss=fs.readFileSync('css/official.css','utf8');
+  const print=officialCss.slice(officialCss.indexOf('@media print{'));
+  const bare=(print.match(/(^|[^.\w-])body>\*:not\(main\)/g)||[]).length;
+  assert.equal(bare,0,'a regra body>*:not(main) precisa ficar restrita a body.print-official: o HTML oficial exportado não tem <main> e imprimiria uma folha em branco');
+  assert.match(print,/body\.print-official>\*:not\(main\)/);
+  const source=fs.readFileSync('js/official.js','utf8');
+  const exporter=source.slice(source.indexOf('function exportHtml'),source.indexOf('function reset'));
+  assert.match(exporter,/<main class="official-export">/,'o HTML exportado precisa envolver as folhas em <main> para sobreviver a CSS de impressão antigo');
+  assert.match(exporter,/<\/main>/);
+  assert.match(exporter,/main\.official-export,main\.official-export>\*\{display:block!important\}/);
+});
